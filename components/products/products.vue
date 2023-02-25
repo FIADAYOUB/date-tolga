@@ -46,6 +46,13 @@ export default {
           :src='item.images[0]'
           cover)
         v-card-title.card-title {{ item.title }}
+        v-card-subtitle(class="d-flex justify-space-between")
+          div {{ item.price }} $
+          v-rating(
+            v-model="item.rating"
+            color="yellow"
+            half-increments
+            readonly)
         v-card-actions(class="justify-center")
           v-btn Details
 </template>
@@ -67,10 +74,13 @@ export default {
 }
 .card-title {
   font-size: 14px;
-  height: 90px;
+  /* height: 90px; */
   white-space:pre-wrap;
   word-break:break-word;
   line-height: 1.5rem;
   text-align: justify;
+}
+.v-rating .v-icon {
+  padding: 0px;
 }
 </style>
