@@ -8,7 +8,7 @@ export default {
     products: [],
     loading: true,
     pages: {
-      limit:this.pages.limit,
+      limit:9,
       skip:1,
       total:0
     },
