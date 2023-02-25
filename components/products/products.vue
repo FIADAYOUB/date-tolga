@@ -1,18 +1,53 @@
 <script>
 export default {
   name:"Products",
+  props: {
+    // products: {type: Array, default: [], required: false}
+  },
   data: () => ({
-  })
+    products: [],
+    loading: true
+  }),
+  created () {
+    this.fetchData();
+  },
+  methods: {
+    fetchData () {
+      const url = 'https://dummyjson.com/products/?limit=8'
+      fetch(url, {
+          method: 'GET',
+          headers: {
+              'Accept': 'application/json',
+          },
+      })
+        .then(response => response.json())
+        .then(response => {
+          this.products = response.products;
+          this.loading = false;
+        })
+    }
+  }
 }
 </script>
 <template lang="pug">
 .products-index
-  div(v-for="item in 9")
-    v-card.grid-container(width="220" heigth="220")
-      v-card-title Card title
-      v-card-subtitle Card subtitle
-      v-card-actions
-        v-btn Click me
+  template(v-if="loading")
+    div(v-for="item in 8")
+      v-skeleton-loader(
+        class="mx-auto"
+        max-width="250"
+        type="card")
+  template(v-else)
+    div(v-for="item in products")
+      v-card.grid-container
+        v-img(
+          class="align-end text-white"
+          height="150"
+          :src='item.images[0]'
+          cover)
+        v-card-title.card-title {{ item.title }}
+        v-card-actions(class="justify-center")
+          v-btn Details
 </template>
 <style>
 .products-index {
@@ -20,7 +55,7 @@ export default {
   height: fit-content;
   margin: 0 auto 200px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
+  grid-template-columns: repeat(auto-fill, 250px);
   grid-template-rows: auto;
   justify-content: center;
   grid-gap: 2em;
@@ -28,5 +63,14 @@ export default {
 }
 .grid-container {
   margin: auto;
+  height: 300px;
+}
+.card-title {
+  font-size: 14px;
+  height: 90px;
+  white-space:pre-wrap;
+  word-break:break-word;
+  line-height: 1.5rem;
+  text-align: justify;
 }
 </style>
