@@ -10,7 +10,6 @@ export default {
 </script>
 <template lang="pug">
 .home-index
-  h1(class="white--text text-center mt-5")
   div.home__wrapper
     handle-list
     div.home-contenu
@@ -23,6 +22,8 @@ export default {
 <style>
 .home-index {
   background-color: darkgrey;
+  padding-top: 20px;
+  padding-bottom: 130px;
 }
 .home__wrapper {
   display: flex;
@@ -36,5 +37,8 @@ export default {
   border-radius: 10px;
   background-color: white;
   padding: 20px;
+}
+.body{
+  margin-bottom: 20px;
 }
 </style>

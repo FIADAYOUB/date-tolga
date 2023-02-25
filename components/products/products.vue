@@ -6,14 +6,38 @@ export default {
   },
   data: () => ({
     products: [],
-    loading: true
+    loading: true,
+    pages: {
+      limit:this.pages.limit,
+      skip:1,
+      total:0
+    },
+    model: 0
   }),
+  watch: {
+    pages: {
+      handler(newValue) {
+        this.fetchData()
+      },
+      deep: true
+    }
+  },
   created () {
     this.fetchData();
   },
+  computed: {
+    getSkip () {
+      return this.pages.skip === 1 ? 0 : (this.pages.skip - 1) * this.pages.limit
+    },
+    getLength () {
+      const a = this.pages.total % this.pages.limit
+      const b = this.pages.total % this.pages.limit === 1 ? 1 : 0
+      return  Math.floor(this.pages.total/this.pages.limit) + b
+    }
+  },
   methods: {
     fetchData () {
-      const url = 'https://dummyjson.com/products/?limit=8'
+      const url = 'https://dummyjson.com/products/?limit='+this.pages.limit+'&skip='+ this.getSkip
       fetch(url, {
           method: 'GET',
           headers: {
@@ -23,6 +47,7 @@ export default {
         .then(response => response.json())
         .then(response => {
           this.products = response.products;
+          this.pages.total = response.total
           this.loading = false;
         })
     }
@@ -31,42 +56,45 @@ export default {
 </script>
 <template lang="pug">
 .products-index
-  template(v-if="loading")
-    div(v-for="item in 8")
-      v-skeleton-loader(
-        class="mx-auto"
-        max-width="250"
-        type="card")
-  template(v-else)
-    div(v-for="item in products")
-      v-card.grid-container
-        v-img(
-          class="align-end text-white"
-          height="150"
-          :src='item.images[0]'
-          cover)
-        v-card-title.card-title {{ item.title }}
-        v-card-subtitle(class="d-flex justify-space-between")
-          div {{ item.price }} $
-          v-rating(
-            v-model="item.rating"
-            color="yellow"
-            half-increments
-            readonly)
-        v-card-actions(class="justify-center")
-          v-btn Details
+  .products-wrapper
+    template(v-if="loading")
+      div(v-for="item in pages.limit")
+        v-skeleton-loader(
+          class="mx-auto"
+          max-width="250"
+          type="card")
+    template(v-else)
+      div(v-for="item in products")
+        v-card.grid-container
+          v-img(
+            class="align-end text-white"
+            height="150"
+            :src='item.images[0]'
+            cover)
+          v-card-title.card-title {{ item.title }}
+          v-card-subtitle(class="d-flex justify-space-between")
+            div {{ item.price }} $
+            v-rating(
+              v-model="item.rating"
+              color="yellow"
+              half-increments
+              readonly)
+          v-card-actions(class="justify-center")
+            v-btn Details
+  v-pagination(v-model="pages.skip" class="mt-4" :length="getLength" :total-visible="5")
 </template>
 <style>
-.products-index {
+.products-index{
   background-color: white;
-  height: fit-content;
-  margin: 0 auto 200px;
+  padding: 20px 0px;
+  margin: 0 auto;
+}
+.products-wrapper {
+  justify-content: center;
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   grid-template-rows: auto;
-  justify-content: center;
   grid-gap: 2em;
-  padding: 20px 0px;
 }
 .grid-container {
   margin: auto;
@@ -74,11 +102,14 @@ export default {
 }
 .card-title {
   font-size: 14px;
-  /* height: 90px; */
+  height: 80px;
   white-space:pre-wrap;
   word-break:break-word;
   line-height: 1.5rem;
   text-align: justify;
+}
+.v-card__subtitle {
+  padding-bottom: 0px;
 }
 .v-rating .v-icon {
   padding: 0px;
