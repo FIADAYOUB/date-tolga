@@ -20,6 +20,12 @@ export default {
         this.fetchData()
       },
       deep: true
+    },
+    '$store.state.products.selectedCategory': {
+      handler(newValue) {
+        this.fetchData()
+      },
+      deep: true
     }
   },
   created () {
@@ -37,8 +43,11 @@ export default {
   },
   methods: {
     fetchData () {
-      const url = 'https://dummyjson.com/products/?limit='+this.pages.limit+'&skip='+ this.getSkip
-      fetch(url, {
+      const urlCat = 'https://dummyjson.com/products/category/'+ this.$store.state.products.selectedCategory
+      const urlAllData = 'https://dummyjson.com/products'
+                  +'?limit='+this.pages.limit+'&skip='+ this.getSkip
+      const urlToGo = this.$store.state.products.selectedCategory ? urlCat : urlAllData
+      fetch(urlToGo, {
           method: 'GET',
           headers: {
               'Accept': 'application/json',
@@ -81,7 +90,7 @@ export default {
               readonly)
           v-card-actions(class="justify-center")
             v-btn Details
-  v-pagination(v-model="pages.skip" class="mt-4" :length="getLength" :total-visible="5")
+  v-pagination(v-if="pages.total > pages.limit" v-model="pages.skip" class="mt-4" :length="getLength" :total-visible="5")
 </template>
 <style>
 .products-index{
