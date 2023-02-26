@@ -92,35 +92,29 @@ export default {
             v-btn Details
   v-pagination(v-if="pages.total > pages.limit" v-model="pages.skip" class="mt-4" :length="getLength" :total-visible="5")
 </template>
-<style>
-.products-index{
-  background-color: white;
-  padding: 20px 0px;
-  margin: 0 auto;
-}
-.products-wrapper {
-  justify-content: center;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 250px);
-  grid-template-rows: auto;
-  grid-gap: 2em;
-}
-.grid-container {
-  margin: auto;
-  height: 300px;
-}
-.card-title {
-  font-size: 14px;
-  height: 80px;
-  white-space:pre-wrap;
-  word-break:break-word;
-  line-height: 1.5rem;
-  text-align: justify;
-}
-.v-card__subtitle {
-  padding-bottom: 0px;
-}
-.v-rating .v-icon {
-  padding: 0px;
-}
+<style lang="sass">
+.products-index
+  background-color: white
+  padding: 20px 0px
+  margin: 0 auto
+  .products-wrapper
+    justify-content: center
+    display: grid
+    grid-template-columns: repeat(auto-fill, 250px)
+    grid-template-rows: auto
+    grid-gap: 2em
+    .grid-container
+      margin: auto
+      height: 300px
+      .card-title
+        font-size: 14px
+        height: 80px
+        white-space:pre-wrap
+        word-break:break-word
+        line-height: 1.5rem
+        text-align: justify
+      .v-card__subtitle
+        padding-bottom: 0px
+    .v-rating .v-icon
+      padding: 0px
 </style>

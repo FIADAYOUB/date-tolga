@@ -19,26 +19,23 @@ export default {
       .body
         Products
 </template>
-<style>
-.home-index {
-  background-color: darkgrey;
-  padding-top: 20px;
-  padding-bottom: 130px;
-}
-.home__wrapper {
-  display: flex;
-}
-.home-contenu {
-  width: calc(100% - 350px);
-}
-.header {
-  height: 200px;
-  margin-bottom: 8px;
-  border-radius: 10px;
-  background-color: white;
-  padding: 20px;
-}
-.body{
-  margin-bottom: 20px;
-}
+<style lang="sass">
+
+.home-index
+  background-color: darkgrey
+  padding-top: 20px
+  padding-bottom: 130px
+  .home__wrapper
+    display: flex
+    .home-contenu
+      width: calc(100% - 350px)
+      .header
+        height: 200px
+        margin-bottom: 8px
+        border-radius: 10px
+        background-color: white
+        padding: 20px
+      .body
+        margin-bottom: 20px
+
 </style>

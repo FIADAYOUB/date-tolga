@@ -1,8 +1,7 @@
 <template lang="pug">
 v-app
   Nuxt
-  v-main
-    Home
+  Home
   Footer
 </template>
 

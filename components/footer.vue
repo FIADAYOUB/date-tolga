@@ -49,29 +49,24 @@ v-footer(dark).mx-auto.footer-index
   div(class="white--text text-center mt-1" style="width:100%") Copyright &copy; {{ new Date().getFullYear() }}
 
 </template>
-<style>
-.footer-index {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-}
-.footer-index ul {
-  list-style: none;
-  padding-left: 8px;
-}
-.footer-index,ul,li {
-  font-family: 'Red Hat Text', sans-serif;
-  font-size: 12px
-}
-.footer-index,ul,li,a {
-  text-decoration: none;
-}
-.help {
-  border-left: 1px solid;
-}
-.footer_wrapper {
-  width: inherit
-}
+<style lang="sass">
+.footer-index
+  width: 100%
+  position: absolute
+  bottom: 0
+  ul
+    list-style: none
+    padding-left: 8px
+    li
+      font-family: 'Red Hat Text', sans-serif
+      font-size: 12px
+      a
+        text-decoration: none
+  .footer_wrapper
+    width: inherit
+    .help
+      border-left: 1px solid
+
 </style>
 
 
