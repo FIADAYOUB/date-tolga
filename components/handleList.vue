@@ -40,10 +40,11 @@ export default {
 <style lang="sass">
 .handle-list
   background-color: white
-  width: 300px
   height: fit-content
   margin: 0 20px
   border-radius: 10px
+  h2
+    width: 250px !important
   .v-expansion-panels
     .v-expansion-panel-header
       padding: 4px 24px
@@ -60,4 +61,7 @@ export default {
           font-size: 18px
         .v-icon
           font-size: 20px
+@media (max-width: 855px)
+  .handle-list
+    display: none
 </style>

@@ -28,7 +28,7 @@ export default {
   .home__wrapper
     display: flex
     .home-contenu
-      width: calc(100% - 350px)
+      padding: 0 8px
       .header
         height: 200px
         margin-bottom: 8px

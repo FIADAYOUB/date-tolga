@@ -8,11 +8,12 @@ export default {
     products: [],
     loading: true,
     pages: {
-      limit:9,
+      limit:12,
       skip:1,
       total:0
     },
-    model: 0
+    model: 0,
+    grid: true
   }),
   watch: {
     pages: {
@@ -65,31 +66,61 @@ export default {
 </script>
 <template lang="pug">
 .products-index
+  .select_wrapper
+    v-row(class="ml-5 mb-2")
+      v-col(cols="12")
+        v-btn(@click="grid=!grid" :class="{'bg-primary': grid}" icon)
+          v-icon(size="38px") mdi-apps
+        v-btn(@click="grid=!grid" :class="{'bg-primary': !grid}" icon)
+          v-icon(size="45px") mdi-view-list
   .products-wrapper
     template(v-if="loading")
-      div(v-for="item in pages.limit")
-        v-skeleton-loader(
-          class="mx-auto"
-          max-width="250"
-          type="card")
+      v-row()
+        v-col(cols="12")
+          v-row(v-show="grid")
+            v-col(v-for="item in pages.limit" cols="12" lg="3" sm="6" xs="12" md="4")
+              v-skeleton-loader(
+                class="mx-auto px-3"
+                max-width="300"
+                type="card")
     template(v-else)
-      div(v-for="item in products")
-        v-card.grid-container
-          v-img(
-            class="align-end text-white"
-            height="150"
-            :src='item.images[0]'
-            cover)
-          v-card-title.card-title {{ item.title }}
-          v-card-subtitle(class="d-flex justify-space-between")
-            div {{ item.price }} $
-            v-rating(
-              v-model="item.rating"
-              color="yellow"
-              half-increments
-              readonly)
-          v-card-actions(class="justify-center")
-            v-btn Details
+      v-row()
+        v-col(cols="12")
+          v-row(v-show="grid")
+            v-col(v-for="item in products" cols="12" lg="3" sm="6" xs="12" md="4")
+              v-card(class="mx-auto px-3" max-width="300")
+                v-img(
+                  class="align-end text-white"
+                  height="150"
+                  :src='item.images[0]'
+                  cover)
+                v-card-title.card-title {{ item.title }}
+                v-card-subtitle(class="d-flex justify-space-between")
+                  div {{ item.price }} $
+                  v-rating(
+                    v-model="item.rating"
+                    color="yellow"
+                    half-increments
+                    readonly)
+                v-card-actions(class="justify-center")
+                  v-btn Add to card
+          v-row(v-show="!grid" v-for="item in products" class="mx-2")
+            v-col(cols="4")
+              v-img( class="align-end text-white" height="150" :src='item.images[0]' cover)
+            v-col(cols="8" sm="6" md="8")
+              v-card-title.card-title(style="padding-top:0px") {{ item.title }}
+              v-card-subtitle
+                div(class="d-flex")
+                  div {{ item.price }} $
+                  v-rating(
+                    v-model="item.rating"
+                    color="yellow"
+                    half-increments
+                    readonly
+                    class="pl-2")
+                div(style="height:60px") {{ item.description }}
+              v-card-actions(class="justify-center")
+                v-btn Add to card
   v-pagination(v-if="pages.total > pages.limit" v-model="pages.skip" class="mt-4" :length="getLength" :total-visible="5")
 </template>
 <style lang="sass">
@@ -97,24 +128,25 @@ export default {
   background-color: white
   padding: 20px 0px
   margin: 0 auto
+  .select_wrapper
+    .bg-primary
+      color: blue
   .products-wrapper
-    justify-content: center
-    display: grid
-    grid-template-columns: repeat(auto-fill, 250px)
-    grid-template-rows: auto
-    grid-gap: 2em
-    .grid-container
-      margin: auto
+    .v-card
+      margin: 0 8px !important
       height: 300px
       .card-title
         font-size: 14px
-        height: 80px
-        white-space:pre-wrap
-        word-break:break-word
+        height: 60px
+        white-space: pre-wrap
+        word-break: break-word
         line-height: 1.5rem
         text-align: justify
       .v-card__subtitle
-        padding-bottom: 0px
-    .v-rating .v-icon
-      padding: 0px
+        padding: 0px
+        overflow: auto
+        margin: 0px
+    .v-rating
+      .v-icon
+        padding: 0px
 </style>
