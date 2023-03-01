@@ -80,7 +80,7 @@ export default {
       v-row()
         v-col(cols="12")
           v-row(v-show="grid")
-            v-col(v-for="item in pages.limit" cols="12" lg="3" sm="6" xs="12" md="4")
+            v-col(v-for="(item, i) in pages.limit" :key="i" cols="12" lg="3" sm="6" xs="12" md="4")
               v-skeleton-loader(
                 class="mx-auto px-3"
                 max-width="300"
@@ -89,10 +89,10 @@ export default {
       v-row()
         v-col(cols="12")
           v-row(v-show="grid" dense)
-            v-col(v-for="product in products" cols="12" lg="3" sm="6" xs="12" md="4")
-              product-card(:product="product", :grid="true")
-          v-row(v-show="!grid" v-for="product in products" class="mx-2" dense)
-            product-card(:product="product", :grid="false")
+            v-col(v-for="(product, i) in products" :key="i" cols="12" lg="3" sm="6" xs="12" md="4")
+              product-card(:product="product" :grid="true")
+          v-row(v-show="!grid" v-for="(product, i) in products" :key="i" class="mx-2" dense)
+            product-card(:product="product",  :grid="false")
   v-pagination(v-if="pages.total > pages.limit" v-model="pages.skip" class="mt-4" :length="getLength" :total-visible="5")
 </template>
 <style lang="sass">
