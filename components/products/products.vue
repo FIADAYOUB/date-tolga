@@ -1,9 +1,11 @@
 <script>
+import ProductCard from './productCard.vue';
 export default {
   name:"Products",
   props: {
     // products: {type: Array, default: [], required: false}
   },
+  components: {ProductCard},
   data: () => ({
     products: [],
     loading: true,
@@ -86,41 +88,11 @@ export default {
     template(v-else)
       v-row()
         v-col(cols="12")
-          v-row(v-show="grid")
-            v-col(v-for="item in products" cols="12" lg="3" sm="6" xs="12" md="4")
-              v-card(class="mx-auto px-3" max-width="300")
-                v-img(
-                  class="align-end text-white"
-                  height="150"
-                  :src='item.images[0]'
-                  cover)
-                v-card-title.card-title {{ item.title }}
-                v-card-subtitle(class="d-flex justify-space-between")
-                  div {{ item.price }} $
-                  v-rating(
-                    v-model="item.rating"
-                    color="yellow"
-                    half-increments
-                    readonly)
-                v-card-actions(class="justify-center")
-                  v-btn Add to card
-          v-row(v-show="!grid" v-for="item in products" class="mx-2")
-            v-col(cols="4")
-              v-img( class="align-end text-white" height="150" :src='item.images[0]' cover)
-            v-col(cols="8" sm="6" md="8")
-              v-card-title.card-title(style="padding-top:0px") {{ item.title }}
-              v-card-subtitle
-                div(class="d-flex")
-                  div {{ item.price }} $
-                  v-rating(
-                    v-model="item.rating"
-                    color="yellow"
-                    half-increments
-                    readonly
-                    class="pl-2")
-                div(style="height:60px") {{ item.description }}
-              v-card-actions(class="justify-center")
-                v-btn Add to card
+          v-row(v-show="grid" dense)
+            v-col(v-for="product in products" cols="12" lg="3" sm="6" xs="12" md="4")
+              product-card(:product="product", :grid="true")
+          v-row(v-show="!grid" v-for="product in products" class="mx-2" dense)
+            product-card(:product="product", :grid="false")
   v-pagination(v-if="pages.total > pages.limit" v-model="pages.skip" class="mt-4" :length="getLength" :total-visible="5")
 </template>
 <style lang="sass">
