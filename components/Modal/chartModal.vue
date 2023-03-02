@@ -1,15 +1,21 @@
-<template>
-  <div class="modal" v-if="isShow">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>shopping list</h3>
-        <button class="close" @click="close()">&times;</button>
-      </div>
-      <div class="modal-body">
-        <slot></slot>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+.modal(v-if="isShow")
+  div(class="modal-content")
+    div(class="modal-header")
+      h3 Shopping list
+      v-btn(icon class="close" @click="close()")
+        v-icon mdi-close
+    div(class="modal-body")
+      v-card(v-for="(product, index) in productsChart" :key="index" class="my-2 my-2")
+        v-card-title {{ product.title }}
+        v-card-subtitle(class="d-flex justify-space-between px-3")
+          div(class="mx-3") {{ product.price }} $
+          div
+          v-btn(icon class="close" @click="increment(product)")
+             v-icon mdi-plus
+          div {{ totalInChart }}
+          v-btn(icon class="close" @click="decrement(product)")
+             v-icon mdi-minus
 </template>
 
 <script>
@@ -22,12 +28,24 @@ export default {
     close() {
       this.$store.commit('app/setShowChartModal', false)
     },
+    increment (item) {
+      this.$store.commit('products/addItemTochart', item)
+    },
+    decrement (item) {
+      this.$store.commit('products/removeFromChart', item)
+    }
   },
   computed: {
     isShow () {
         return this.$store.state.app.showChartModal
-      },
-  }
+    },
+    productsChart () {
+      return this.$store.state.products.itemsInChart
+    },
+    totalInChart (item) {
+      return this.$store.state.products.itemsInChart.filter((v) => (v.id === item.id)).length
+    }
+  },
 };
 </script>
 
