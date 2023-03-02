@@ -23,7 +23,7 @@ export default {
 
 .home-index
   background-color: darkgrey
-  padding-top: 20px
+  padding-top: 80px
   padding-bottom: 130px
   .home__wrapper
     display: flex
