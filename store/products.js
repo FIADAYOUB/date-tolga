@@ -1,6 +1,7 @@
 export const state = () => ({
   selectedCategory: "",
-  itemsFav: []
+  itemsFav: [],
+  itemsInChart: []
 })
 
 export const getters = {
@@ -17,6 +18,12 @@ export const mutations = {
     state.itemsFav.push(payload)
   },
   removeFromFav(state, payload) {
-    state.itemsFav.splice(state.itemsFav.findIndex(item => item === payload), 1)
-  }
+    state.itemsFav.splice(state.itemsInChart.findIndex(item => item === payload), 1)
+  },
+  addItemTochart(state, payload) {
+    state.itemsInChart.push(payload)
+  },
+  removeFromChart(state, payload) {
+    state.itemsInChart.splice(state.itemsInChart.findIndex(item => item === payload), 1)
+  },
 }

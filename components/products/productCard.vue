@@ -14,6 +14,9 @@ export default {
         // add to fav list
         this.$store.commit('products/addToFav', item.id)
       }
+    },
+    addToChart (item) {
+      this.$store.commit('products/addItemTochart', item)
     }
   },
   computed: {
@@ -43,7 +46,7 @@ export default {
           half-increments
           readonly)
       v-card-actions(class="justify-center")
-        v-btn Add to card
+        v-btn(@click="addToChart(product)") Add to card
   template(v-else)
     v-col(cols="12")
       v-card(style="max-height: 220px")
@@ -65,7 +68,7 @@ export default {
                   class="pl-2")
               div(style="height:60px") {{ product.description }}
         v-card-actions(class="justify-end")
-          v-btn Add to card
+          v-btn(@click="addToChart(product)") Add to card
 
 </template>
 <style lang="sass">
