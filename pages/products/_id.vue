@@ -15,7 +15,7 @@
         div(class="d-flex mt-2 mx-auto")
           div
             div.promo Save {{ product.discountPercentage }} %
-            div {{ product.price - (product.price * (product.discountPercentage / 100)) }} $
+            div {{ dealPrice }} $
           v-divider(vertical class="mx-3" color="primary")
           div
             div Old price
@@ -48,6 +48,11 @@ export default {
           this.product = response;
           this.loading = false;
         })
+    }
+  },
+  computed: {
+    dealPrice() {
+      return this.product.price - (this.product.price * (this.product.discountPercentage / 100)).toFixed(2)
     }
   }
 }
