@@ -12,10 +12,10 @@
           div(class="mx-3") {{ product.price }} $
           div
           v-btn(icon class="close" @click="increment(product)")
-             v-icon mdi-plus
-          div {{ totalInChart }}
+            v-icon mdi-plus
+          div {{ product.count }}
           v-btn(icon class="close" @click="decrement(product)")
-             v-icon mdi-minus
+            v-icon mdi-minus
 </template>
 
 <script>
@@ -28,21 +28,21 @@ export default {
     close() {
       this.$store.commit('app/setShowChartModal', false)
     },
-    increment (item) {
+    increment(item) {
       this.$store.commit('products/addItemTochart', item)
     },
-    decrement (item) {
+    decrement(item) {
       this.$store.commit('products/removeFromChart', item)
     }
   },
   computed: {
-    isShow () {
-        return this.$store.state.app.showChartModal
+    isShow() {
+      return this.$store.state.app.showChartModal
     },
-    productsChart () {
+    productsChart() {
       return this.$store.state.products.itemsInChart
     },
-    totalInChart (item) {
+    totalInChart(item) {
       return this.$store.state.products.itemsInChart.filter((v) => (v.id === item.id)).length
     }
   },
