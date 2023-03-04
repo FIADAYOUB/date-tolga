@@ -3,7 +3,7 @@
   v-app
     .product-info(v-if="!loading")
       .image__wrapper
-        v-carousel(v-model="model" hide-delimiters)
+        v-carousel(v-model="model" hide-delimiters cycle)
           v-carousel-item(v-for="img in product.images" :src="img" cover height="200px")
       .infos(class="mx-3")
         v-chip(v-if="product.stock < deal" label color="info") Top Deal
