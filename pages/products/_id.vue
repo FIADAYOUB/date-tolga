@@ -141,8 +141,9 @@ export default {
         background-color: #0046be
       .option-box-price
         display: grid
-        grid-template-columns: 110px 110px 110px
         grid-gap: 10px
-
-
+        @media (min-width: 900px)
+          grid-template-columns: repeat(3, 110px)
+        @media (max-width: 900px)
+            grid-template-columns: repeat(2, 110px)
 </style>
