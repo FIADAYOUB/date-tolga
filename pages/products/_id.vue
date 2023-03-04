@@ -1,5 +1,5 @@
 <template lang="pug">
-.product-page
+.product-page(v-if="!loading")
   v-app
     .product-info(v-if="!loading")
       .image__wrapper
@@ -27,6 +27,11 @@
         div.pr-2 Offering impressive performance in a sleek package, the HP 15 laptop is a worthy pick for on-the-go productivity and portable entertainment. Powered by an Intel Core i5 CPU and 8GB RAM, it gives you fast and reliable performance for taking on challenging tasks. Equipped with fast charging technology and a durable battery, this laptop provides hours of uninterrupted operation.
         .return-option
           .d-flex
+            v-icon.mt-3(hight="24px" color="black") mdi-certificate
+            div.ml-2
+              h5 Manufacturer's Warranty
+              div Parts and Labour: 1 year
+          .d-flex
             font-awesome-icon.mt-3(icon="fa-right-left")
             div.ml-2
               h5 Return Policy
@@ -53,11 +58,43 @@
               v-card.mr-3.px-4( @click="changePrice(option)" :class="{'primary' : option.title === selectedPrice.title}")
                 h5(:class="{'py-3 px-auto' : !option.value}") {{ option.title }}
                 div(v-if="option.value") {{ option.value }} $
+    .product-detail.mx-15
+      v-expansion-panels(v-model="panel" multiple)
+        v-expansion-panel
+          v-expansion-panel-header.b Cutomers reviews
+          v-expansion-panel-content
+            .d-flex
+              .rating-review
+                h3 Rattings
+                div.d-flex
+                  div.mr-3  {{ product.rating }}
+                  v-rating.justify-center(v-model="product.rating" color="yellow" half-increments readonly)
+                div Average rating based on {{ totalReview }} reviews
+                h3 Rating Breakdown
+                template(v-for="item in ratingList")
+                  .d-flex
+                    div {{ item.star }}
+                    v-icon(color="yellow") mdi-star
+                    v-progress-linear.mt-3.mx-2(:value="bufferRating(item)" height="6" rounded )
+                    div(style="width:30px") {{ item.number }}
+                v-btn.ma-2.primary Write your review
+              v-divider(vertical).mx-4
+              .review-recomendation
+                h3 Reviewer Recommendation
+                .d-flex.mt-2
+                  v-icon(color="black") mdi-emoticon-happy-outline
+                  div.ml-2 Of the {{ totalReview }} reviewers who responded, 19 would recommend this product.
+                v-divider.my-4
+
+
 </template>
 <script>
 export default {
   name: "product-id",
   data: () => ({
+    panel: [0],
+    totalReview: 27,
+    ratingList: [{ star: 5, number: 14 }, { star: 4, number: 5 }, { star: 3, number: 2 }, { star: 2, number: 0 }, { star: 1, number: 6 }],
     deal: 100,
     model: 0,
     product: null,
@@ -93,17 +130,23 @@ export default {
     },
     showPickUp() {
       this.isDelivery = false
+    },
+    bufferRating(item) {
+      return (item.number * 100) / this.totalReview
     }
   },
   computed: {
     dealPrice() {
       return this.product.price - (this.product.price * (this.product.discountPercentage / 100)).toFixed(2)
-    },
+    }
   }
 }
 </script>
 <style lang="sass">
 .product-page
+  .v-rating
+    .v-icon
+      padding: 0px
   .product-info
     display: flex
     padding: 180px calc(5% + 20px) 20px
@@ -116,9 +159,6 @@ export default {
     .infos
       .promo
         color: red
-      .v-rating
-        .v-icon
-          padding: 0px
   .product-plus
     display: flex
     padding: 20px calc(5% + 20px)
@@ -136,6 +176,8 @@ export default {
       .return-option
         background-color: #f4f6f9
         padding: 4px
+        .v-icon
+          height: fit-content
     .delivery__wrapper
       width: 50%
       padding: 10px
@@ -153,4 +195,9 @@ export default {
           grid-template-columns: repeat(3, 110px)
         @media (max-width: 900px)
             grid-template-columns: repeat(2, 110px)
+  .product-detail
+    .rating-review
+      width: 50%
+    .review-recomendation
+      width: 50%
 </style>
