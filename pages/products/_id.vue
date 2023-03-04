@@ -63,7 +63,7 @@
         v-expansion-panel
           v-expansion-panel-header.b Cutomers reviews
           v-expansion-panel-content
-            .d-flex
+            .rating__wrapper.d-flex
               .rating-review
                 h3 Rattings
                 div.d-flex
@@ -85,6 +85,8 @@
                   v-icon(color="black") mdi-emoticon-happy-outline
                   div.ml-2 Of the {{ totalReview }} reviewers who responded, 19 would recommend this product.
                 v-divider.my-4
+          v-expansion-panel
+            v-expansion-panel-header.b Low Price Guarantee
 
 
 </template>
@@ -193,11 +195,27 @@ export default {
         grid-gap: 0.5rem
         @media (min-width: 900px)
           grid-template-columns: repeat(3, 110px)
-        @media (max-width: 900px)
+        @media (-width: 900px)
             grid-template-columns: repeat(2, 110px)
   .product-detail
     .rating-review
       width: 50%
     .review-recomendation
       width: 50%
+  @media (max-width: 630px)
+    .product-info
+      flex-direction: column-reverse
+      .image__wrapper
+        width: 80%
+        margin: auto
+    .product-plus
+      flex-direction: column-reverse
+      .overview__wrapper, .delivery__wrapper
+        width: 100% !important
+    .product-detail
+      .rating__wrapper
+        flex-direction: column
+        margin: auto
+        .rating-review, .review-recomendation
+          width: 100%
 </style>
