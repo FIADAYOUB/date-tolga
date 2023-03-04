@@ -22,13 +22,17 @@
             div  {{ product.price }} $
         div(class="my-2") {{ product.stock }} In stock
     .product-plus
-      .overview__wrapper
+      .overview__wrapper.mr-1
         h3 Overview
         div.pr-2 Offering impressive performance in a sleek package, the HP 15 laptop is a worthy pick for on-the-go productivity and portable entertainment. Powered by an Intel Core i5 CPU and 8GB RAM, it gives you fast and reliable performance for taking on challenging tasks. Equipped with fast charging technology and a durable battery, this laptop provides hours of uninterrupted operation.
         .return-option
           .d-flex
-
-      .delivery__wrapper
+            font-awesome-icon.mt-3(icon="fa-right-left")
+            div.ml-2
+              h5 Return Policy
+              div 30 days to return or exchange
+              a.text-decoration-underline Read return policy
+      .delivery__wrapper.ml-1
         .d-flex.justify-center
           v-btn(:class="{'isDelivery': isDelivery}" @click="showDelivery()") Delivery
           v-btn(:class="{'isDelivery': !isDelivery}"  @click="showPickUp()") Pick up
@@ -129,19 +133,22 @@ export default {
         white-space: pre-wrap
         word-break: break-word
         line-height: 1.5rem
+      .return-option
+        background-color: #f4f6f9
+        padding: 4px
     .delivery__wrapper
       width: 50%
       padding: 10px
       background-color: #f4f6f9
       .full-btn
-        width: 90% !important
+        width: calc( 100% - 26px ) !important
       .v-btn
         width: 50%
       .isDelivery
         background-color: #0046be
       .option-box-price
         display: grid
-        grid-gap: 10px
+        grid-gap: 0.5rem
         @media (min-width: 900px)
           grid-template-columns: repeat(3, 110px)
         @media (max-width: 900px)
