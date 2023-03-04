@@ -1,18 +1,18 @@
 <script>
 import ProductCard from './productCard.vue';
 export default {
-  name:"Products",
+  name: "Products",
   props: {
     // products: {type: Array, default: [], required: false}
   },
-  components: {ProductCard},
+  components: { ProductCard },
   data: () => ({
     products: [],
     loading: true,
     pages: {
-      limit:12,
-      skip:1,
-      total:0
+      limit: 12,
+      skip: 1,
+      total: 0
     },
     model: 0,
     grid: true
@@ -31,30 +31,30 @@ export default {
       deep: true
     }
   },
-  created () {
+  created() {
     this.fetchData();
   },
   computed: {
-    getSkip () {
+    getSkip() {
       return this.pages.skip === 1 ? 0 : (this.pages.skip - 1) * this.pages.limit
     },
-    getLength () {
+    getLength() {
       const a = this.pages.total % this.pages.limit
       const b = this.pages.total % this.pages.limit === 1 ? 1 : 0
-      return  Math.floor(this.pages.total/this.pages.limit) + b
+      return Math.floor(this.pages.total / this.pages.limit) + b
     }
   },
   methods: {
-    fetchData () {
-      const urlCat = 'https://dummyjson.com/products/category/'+ this.$store.state.products.selectedCategory
+    fetchData() {
+      const urlCat = 'https://dummyjson.com/products/category/' + this.$store.state.products.selectedCategory
       const urlAllData = 'https://dummyjson.com/products'
-                  +'?limit='+this.pages.limit+'&skip='+ this.getSkip
+        + '?limit=' + this.pages.limit + '&skip=' + this.getSkip
       const urlToGo = this.$store.state.products.selectedCategory ? urlCat : urlAllData
       fetch(urlToGo, {
-          method: 'GET',
-          headers: {
-              'Accept': 'application/json',
-          },
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
       })
         .then(response => response.json())
         .then(response => {

@@ -25,6 +25,9 @@
       .overview__wrapper
         h3 Overview
         div.pr-2 Offering impressive performance in a sleek package, the HP 15 laptop is a worthy pick for on-the-go productivity and portable entertainment. Powered by an Intel Core i5 CPU and 8GB RAM, it gives you fast and reliable performance for taking on challenging tasks. Equipped with fast charging technology and a durable battery, this laptop provides hours of uninterrupted operation.
+        .return-option
+          .d-flex
+
       .delivery__wrapper
         .d-flex.justify-center
           v-btn(:class="{'isDelivery': isDelivery}" @click="showDelivery()") Delivery
@@ -35,13 +38,17 @@
             //- v-badge(overlap icon="mdi-check" size="20px")
             font-awesome-icon(icon="fa-truck-fast" )
             h5.ml-2 Available to ship
-          div(style="font-size:12px")
+          div.ml-6(style="font-size:12px")
             div This will be delivered as early as today!
             div
               span Enjoy fast, free shipping on
               span.font-weight-bold  most orders over $35.
-          v-btn.full-btn.mt-3(color="#ffce00" size="large") Add to Cart
-
+          v-btn.full-btn.mt-3.ml-6(color="#ffce00" size="large") Add to Cart
+          .option-box-price.mt-2.ml-6
+            template(v-for="(option, i) in optionPrice")
+              v-card.mr-3.px-4( @click="changePrice(option)" :class="{'primary' : option.title === selectedPrice.title}")
+                h5(:class="{'py-3 px-auto' : !option.value}") {{ option.title }}
+                div(v-if="option.value") {{ option.value }} $
 </template>
 <script>
 export default {
@@ -51,7 +58,9 @@ export default {
     model: 0,
     product: null,
     loading: true,
-    isDelivery: true
+    isDelivery: true,
+    selectedPrice: { title: "No plan" },
+    optionPrice: [{ title: "No plan" }, { title: "2 years", value: 159.99 }, { title: "3 years", value: 249.99 }, { title: "4 years", value: 289.99 }]
   }),
   created() {
     this.fetchData()
@@ -71,6 +80,9 @@ export default {
           this.loading = false;
         })
     },
+    changePrice(item) {
+      this.selectedPrice = item
+    },
     showDelivery() {
       this.isDelivery = true
 
@@ -82,7 +94,7 @@ export default {
   computed: {
     dealPrice() {
       return this.product.price - (this.product.price * (this.product.discountPercentage / 100)).toFixed(2)
-    }
+    },
   }
 }
 </script>
@@ -122,11 +134,15 @@ export default {
       padding: 10px
       background-color: #f4f6f9
       .full-btn
-        width: 100% !important
+        width: 90% !important
       .v-btn
         width: 50%
       .isDelivery
         background-color: #0046be
+      .option-box-price
+        display: grid
+        grid-template-columns: 110px 110px 110px
+        grid-gap: 10px
 
 
 </style>
