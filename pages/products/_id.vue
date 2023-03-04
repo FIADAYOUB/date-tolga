@@ -21,6 +21,27 @@
             div Old price
             div  {{ product.price }} $
         div(class="my-2") {{ product.stock }} In stock
+    .product-plus
+      .overview__wrapper
+        h3 Overview
+        div.pr-2 Offering impressive performance in a sleek package, the HP 15 laptop is a worthy pick for on-the-go productivity and portable entertainment. Powered by an Intel Core i5 CPU and 8GB RAM, it gives you fast and reliable performance for taking on challenging tasks. Equipped with fast charging technology and a durable battery, this laptop provides hours of uninterrupted operation.
+      .delivery__wrapper
+        .d-flex.justify-center
+          v-btn(:class="{'isDelivery': isDelivery}" @click="showDelivery()") Delivery
+          v-btn(:class="{'isDelivery': !isDelivery}"  @click="showPickUp()") Pick up
+        template(v-if="isDelivery")
+          .d-flex.my-3.align-center
+            //- add check bagde if we have delivery option
+            //- v-badge(overlap icon="mdi-check" size="20px")
+            font-awesome-icon(icon="fa-truck-fast" )
+            h5.ml-2 Available to ship
+          div(style="font-size:12px")
+            div This will be delivered as early as today!
+            div
+              span Enjoy fast, free shipping on
+              span.font-weight-bold  most orders over $35.
+          v-btn.full-btn.mt-3(color="#ffce00" size="large") Add to Cart
+
 </template>
 <script>
 export default {
@@ -29,7 +50,8 @@ export default {
     deal: 100,
     model: 0,
     product: null,
-    loading: true
+    loading: true,
+    isDelivery: true
   }),
   created() {
     this.fetchData()
@@ -48,6 +70,13 @@ export default {
           this.product = response;
           this.loading = false;
         })
+    },
+    showDelivery() {
+      this.isDelivery = true
+
+    },
+    showPickUp() {
+      this.isDelivery = false
     }
   },
   computed: {
@@ -61,19 +90,43 @@ export default {
 .product-page
   .product-info
     display: flex
-    padding: 180px calc(5% + 20px) 50px
+    padding: 180px calc(5% + 20px) 20px
     .image__wrapper
       width: 50%
       .v-carousel
         height: 300px !important
         .v-carousel__item
           height: 250px !important
-  .infos
-    .promo
-      color: red
-    .v-rating
-      .v-icon
-        padding: 0px
+    .infos
+      .promo
+        color: red
+      .v-rating
+        .v-icon
+          padding: 0px
+  .product-plus
+    display: flex
+    padding: 20px calc(5% + 20px)
+    font-family: Human BBY,Arial,sans-serif
+    .overview__wrapper
+      width: 50%
+      div
+        padding-top: 8px
+        font-size: 14px
+        line-height: 24px
+        color: #1d252c
+        white-space: pre-wrap
+        word-break: break-word
+        line-height: 1.5rem
+    .delivery__wrapper
+      width: 50%
+      padding: 10px
+      background-color: #f4f6f9
+      .full-btn
+        width: 100% !important
+      .v-btn
+        width: 50%
+      .isDelivery
+        background-color: #0046be
 
 
 </style>

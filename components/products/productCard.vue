@@ -47,7 +47,7 @@ export default {
             half-increments
             readonly)
         v-card-actions(class="justify-center")
-          v-btn(@click.prevent="addToChart(product)") Add to card
+          v-btn(@click.prevent="addToChart(product)") Add to cart
   template(v-else)
     v-col(cols="12")
       nuxt-link(:to="`/products/?id=${product.id}`")
@@ -70,7 +70,7 @@ export default {
                     class="pl-2")
                 div(style="height:60px") {{ product.description }}
           v-card-actions(class="justify-end")
-            v-btn(@click.prevent="addToChart(product)") Add to card
+            v-btn(@click.prevent="addToChart(product)") Add to cart
 
 </template>
 <style lang="sass">
