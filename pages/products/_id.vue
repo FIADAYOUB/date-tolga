@@ -64,12 +64,12 @@
             h5.ml-2 Available for free store pickup
           div.ml-6
             div Showing 3 closest stores near H9J
-            v-card
+            v-card.mb-4
               v-card-text
                 v-text-field(v-model="searchValue" :loading="loadingStore" density="compact" variant="solo" label="H9J" append-icon="mdi-magnify" single-line hide-details @click:append="searchStore()")
             div(v-if="!loadingStore" v-for="item in storeList")
               .d-flex.justify-start
-                v-icon.pt-4(color="primary") mdi-check
+                v-icon(color="primary") mdi-check
                 .d-flex.pl-2
                   div {{ item.name }}
                   v-divider.mx-3(vertical)
@@ -186,7 +186,6 @@ export default {
 <style lang="sass">
 .product-page
   div
-    padding-top: 8px
     font-size: $font-size
     font-family: $font-family
     line-height: 24px
