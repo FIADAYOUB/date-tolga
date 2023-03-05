@@ -58,6 +58,24 @@
               v-card.mr-3.px-4( @click="changePrice(option)" :class="{'primary' : option.title === selectedPrice.title}")
                 h5(:class="{'py-3 px-auto' : !option.value}") {{ option.title }}
                 div(v-if="option.value") {{ option.value }} $
+        template(v-else)
+          .d-flex.my-3.align-center
+            font-awesome-icon(icon="fa-truck-fast")
+            h5.ml-2 Available for free store pickup
+          div.ml-6
+            div Showing 3 closest stores near H9J
+            v-card
+              v-card-text
+                v-text-field(v-model="searchValue" :loading="loadingStore" density="compact" variant="solo" label="H9J" append-icon="mdi-magnify" single-line hide-details @click:append="searchStore()")
+            div(v-if="!loadingStore" v-for="item in storeList")
+              .d-flex.justify-start
+                v-icon.pt-4(color="primary") mdi-check
+                .d-flex.pl-2
+                  div {{ item.name }}
+                  v-divider.mx-3(vertical)
+                  div {{ item.away }} Km away
+              a.ml-3.text-decoration-underline Pick Up Here
+            v-btn.full-btn.mt-3.ml-3(color="#ffce00" size="large") Pick up at store
     .product-detail.mx-15
       v-expansion-panels(v-model="panel" multiple)
         v-expansion-panel
@@ -87,13 +105,16 @@
                 v-divider.my-4
           v-expansion-panel
             v-expansion-panel-header.b Low Price Guarantee
-
+            v-expansion-panel-content If you find a lower price with another retailer before you buy (or within 30 days of purchase), we’ll gladly match that price. If our own price is reduced within 30 days of purchase, we’ll match it and refund you the difference. Conditions and exclusions apply.
 
 </template>
 <script>
 export default {
   name: "product-id",
   data: () => ({
+    loadingStore: false,
+    searchValue: null,
+    storeList: [],
     panel: [0],
     totalReview: 27,
     ratingList: [{ star: 5, number: 14 }, { star: 4, number: 5 }, { star: 3, number: 2 }, { star: 2, number: 0 }, { star: 1, number: 6 }],
@@ -109,6 +130,24 @@ export default {
     this.fetchData()
   },
   methods: {
+    validateCanadianPostalCode(postalCode) {
+      const postalCodeRegex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVXY][ -]?\d[ABCEGHJKLMNPRSTVXY]\d$/i);
+
+      return postalCodeRegex.test(postalCode);
+    },
+    searchStore() {
+      this.loadingStore = true
+      console.log(this.validateCanadianPostalCode(this.searchValue))
+      if (this.validateCanadianPostalCode(this.searchValue)) {
+        // Get store list near searchValue
+        setTimeout(() => {
+          this.storeList = [
+            { name: "Laval", away: 16.8 }, { name: "Vaudreuil", away: 14.9 }, { name: "Pointe Claire", away: 3.9 }
+          ]
+          this.loadingStore = false
+        }, 2000)
+      }
+    },
     fetchData() {
       const url = 'https://dummyjson.com/products/' + this.$route.query.id
       fetch(url, {
@@ -146,6 +185,15 @@ export default {
 </script>
 <style lang="sass">
 .product-page
+  div
+    padding-top: 8px
+    font-size: $font-size
+    font-family: $font-family
+    line-height: 24px
+    color: #1d252c
+    white-space: pre-wrap
+    word-break: break-word
+    line-height: 1.5rem
   .v-rating
     .v-icon
       padding: 0px
@@ -167,14 +215,6 @@ export default {
     font-family: Human BBY,Arial,sans-serif
     .overview__wrapper
       width: 50%
-      div
-        padding-top: 8px
-        font-size: 14px
-        line-height: 24px
-        color: #1d252c
-        white-space: pre-wrap
-        word-break: break-word
-        line-height: 1.5rem
       .return-option
         background-color: #f4f6f9
         padding: 4px
