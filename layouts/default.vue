@@ -1,7 +1,9 @@
 <template lang="pug">
 v-app
   v-app-bar
-    v-app-bar-title Shopping
+    v-app-bar-title
+      nuxt-link(to="/")
+        v-icon mdi-home
     v-spacer
     v-btn(class="text-none" icon stacked @click="showChartModal")
       v-badge(v-if="totalChart > 0" color="error" :content="totalChart" overlap)
