@@ -15,7 +15,8 @@ export default {
       total: 0
     },
     model: 0,
-    grid: true
+    grid: true,
+    searchValue: null
   }),
   watch: {
     pages: {
@@ -29,7 +30,13 @@ export default {
         this.fetchData()
       },
       deep: true
-    }
+    },
+    searchValue: {
+      immediate: true,
+      handler(newValue) {
+        this.searchItem(newValue)
+      },
+    },
   },
   created() {
     this.fetchData();
@@ -46,6 +53,7 @@ export default {
   },
   methods: {
     fetchData() {
+      this.loading = true
       const urlCat = 'https://dummyjson.com/products/category/' + this.$store.state.products.selectedCategory
       const urlAllData = 'https://dummyjson.com/products'
         + '?limit=' + this.pages.limit + '&skip=' + this.getSkip
@@ -62,19 +70,32 @@ export default {
           this.pages.total = response.total
           this.loading = false;
         })
+    },
+    searchItem(val) {
+      this.loading = true
+      fetch('https://dummyjson.com/products/search?q=' + val)
+        .then(res => res.json())
+        .then(res => {
+          this.products = res.products;
+          this.pages.total = res.total
+          this.loading = false;
+        });
     }
   }
 }
 </script>
 <template lang="pug">
 .products-index
-  .select_wrapper
-    v-row(class="ml-5 mb-2")
-      v-col(cols="12")
-        v-btn(@click="grid=!grid" :class="{'bg-primary': grid}" icon)
-          v-icon(size="38px") mdi-apps
-        v-btn(@click="grid=!grid" :class="{'bg-primary': !grid}" icon)
-          v-icon(size="45px") mdi-view-list
+  .select_wrapper.d-flex.align-center.justify-space-between.mb-3
+    .list-order-center
+      v-row(class="ml-5")
+        v-col(cols="12")
+          v-btn(@click="grid=!grid" :class="{'bg-primary': grid}" icon)
+            v-icon(size="38px") mdi-apps
+          v-btn(@click="grid=!grid" :class="{'bg-primary': !grid}" icon)
+            v-icon(size="45px") mdi-view-list
+    .search.mx-3
+      v-text-field(v-model='searchValue' prepend-icon="mdi-magnify" single-line  placeholder="search...")
   .products-wrapper
     template(v-if="loading")
       v-row()
