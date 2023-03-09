@@ -1,30 +1,30 @@
 <script>
 export default {
-  name:"Footer",
+  name: "Footer",
   data: () => ({
     contacts: [
-      { name:"github", icon:"mdi-github", url:""},
-      {name:"gmail", icon:"mdi-gmail", url:""},
-      {name:"linkedin", icon:"mdi-linkedin", url:""}
+      { name: "github", icon: "mdi-github", url: "" },
+      { name: "gmail", icon: "mdi-gmail", url: "" },
+      { name: "linkedin", icon: "mdi-linkedin", url: "" }
     ],
     helps: [
-         { name: "Help Center", url: "" },
-         { name: "Contact Us", url: "" },
-         { name: "Login", url: "" }
-       ],
+      { name: "Help Center", url: "" },
+      { name: "Contact Us", url: "" },
+      { name: "Login", url: "" }
+    ],
     services: [
-          {
-            title: "955 rue legendre est, Montreal",
-          },
-          {
-            title: "H2M 2J9",
-          },
-          {
-            title: "4388354014",
-          },
-          {
-          }
-        ]
+      {
+        title: "955 rue legendre est, Montreal",
+      },
+      {
+        title: "H2M 2J9",
+      },
+      {
+        title: "4388354014",
+      },
+      {
+      }
+    ]
   })
 }
 </script>
@@ -52,7 +52,6 @@ v-footer(dark).mx-auto.footer-index
 <style lang="sass">
 .footer-index
   width: 100%
-  position: absolute
   bottom: 0
   ul
     list-style: none

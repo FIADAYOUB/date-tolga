@@ -2,7 +2,7 @@
 import Products from '../components/products/products.vue'
 import HandleList from '../components/handleList.vue'
 export default {
-  name:"Home",
+  name: "Home",
   data: () => ({
   }),
   components: { Products, HandleList }
@@ -24,7 +24,6 @@ export default {
 .home-index
   background-color: darkgrey
   padding-top: 80px
-  padding-bottom: 130px
   .home__wrapper
     display: flex
     .home-contenu
