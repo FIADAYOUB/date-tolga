@@ -1,17 +1,14 @@
 <template lang="pug">
 .index
   Home
-  chart-modal
 </template>
 
 <script>
 import Home from '../components/home.vue';
-import ChartModal from '../components/modal/chartModal.vue';
 export default {
   name: 'IndexPage',
   components: {
-    Home,
-    ChartModal
+    Home
   },
   data: () => ({
     bgColor: 'white'
@@ -22,9 +19,6 @@ export default {
     }
   },
   computed: {
-    totalChart() {
-      return this.$store.state.products.itemsInChart.length
-    },
     changeColor() {
       return window.scrollY > 100 ? 'transparent' : 'white'
     }
@@ -32,9 +26,6 @@ export default {
   methods: {
     handleScroll() {
       this.bgColor = window.scrollY > 60 ? 'transparent' : 'white'
-    },
-    showChartModal() {
-      this.$store.commit('app/setShowChartModal', true)
     }
   }
 }

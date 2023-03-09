@@ -11,15 +11,18 @@ v-app
     v-btn(icon)
       v-icon mdi-account-circle
   Nuxt
+  chart-modal
   Footer
 </template>
 
 <script>
+import ChartModal from '../components/modal/chartModal.vue';
 import Footer from '../components/footer.vue';
 export default {
   name: 'IndexPage',
   components: {
-    Footer
+    Footer,
+    ChartModal
   },
   data: () => ({
     bgColor: 'white'
@@ -27,6 +30,9 @@ export default {
   created() {
   },
   computed: {
+    totalChart() {
+      return this.$store.state.products.itemsInChart.length
+    },
     totalChart() {
       return this.$store.state.products.itemsInChart.length
     }
