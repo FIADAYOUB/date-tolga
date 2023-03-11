@@ -28,6 +28,7 @@ export default {
     display: flex
     .home-contenu
       padding: 0 8px
+      width: 100%
       .header
         height: 200px
         margin-bottom: 8px
