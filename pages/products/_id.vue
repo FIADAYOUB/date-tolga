@@ -186,7 +186,6 @@ export default {
 .product-page
   div
     font-size: $font-size
-    font-family: $font-family
     line-height: 24px
     color: #1d252c
     white-space: pre-wrap
@@ -210,7 +209,6 @@ export default {
   .product-plus
     display: flex
     padding: 20px calc(5% + 20px)
-    font-family: Human BBY,Arial,sans-serif
     .overview__wrapper
       width: 50%
       .return-option

@@ -47,6 +47,7 @@ export default {
 }
 </script>
 <style lang="sass">
-
+.v-application
+   font-family: Red Hat Text,sans-serif
 </style>
 
