@@ -1,5 +1,6 @@
 <script>
-import ProductCard from './productCard.vue';
+import ProductCard from './productCard.vue'
+import _ from "lodash"
 export default {
   name: "Products",
   props: {
@@ -21,7 +22,9 @@ export default {
   watch: {
     pages: {
       handler(newValue) {
-        this.fetchData()
+        if (!this.searchValue) {
+          this.fetchData()
+        }
       },
       deep: true
     },
@@ -32,10 +35,10 @@ export default {
       deep: true
     },
     searchValue: {
-      immediate: true,
-      handler(newValue) {
-        this.searchItem(newValue)
-      },
+      immediate: false,
+      handler: _.debounce(function (val, oldVal) {
+        this.searchItem(val)
+      }, 1000),
     },
   },
   created() {
