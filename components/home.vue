@@ -9,11 +9,11 @@ export default {
 }
 </script>
 <template lang="pug">
-.home-index
+.home-index.accent
   div.home__wrapper
     handle-list
     div.home-contenu
-      .header
+      .header.secondary
         h1 Global store
         span {{ new Date().toLocaleDateString() }}
       .body
@@ -22,7 +22,6 @@ export default {
 <style lang="sass">
 
 .home-index
-  background-color: darkgrey
   padding-top: 80px
   .home__wrapper
     display: flex
@@ -33,7 +32,6 @@ export default {
         height: 200px
         margin-bottom: 8px
         border-radius: 10px
-        background-color: white
         padding: 20px
       .body
         margin-bottom: 20px

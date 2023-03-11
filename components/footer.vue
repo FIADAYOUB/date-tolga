@@ -30,7 +30,7 @@ export default {
 </script>
 <template lang="pug">
 
-v-footer(dark).mx-auto.footer-index
+v-footer(dark).mx-auto.footer-index.primary
   div.footer_wrapper(class="d-flex justify-space-between pa-3")
     div Get Help
       ul

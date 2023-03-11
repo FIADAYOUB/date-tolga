@@ -2,4 +2,8 @@
 //
 // The variables you want to modify
 $font-size: 12px;
-$font-family: Red Hat Text,sans-serif
+$font-family: Red Hat Text,sans-serif;
+:root {
+  --primary-color: #0046be;
+  --secondary-color: #D5E1F4;
+}

@@ -1,6 +1,6 @@
 <template lang="pug">
 v-app
-  v-app-bar
+  v-app-bar.primary
     v-app-bar-title
       nuxt-link(to="/")
         v-icon mdi-home
@@ -49,5 +49,7 @@ export default {
 <style lang="sass">
 .v-application
    font-family: Red Hat Text,sans-serif
+   .v-toolbar__content
+      background-color: var(--primary)
 </style>
 

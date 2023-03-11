@@ -1,32 +1,32 @@
 <script>
 export default {
-  name:"HandleList",
+  name: "HandleList",
   data: () => ({
     category: [
-              "smartphones"
-            , "laptops"
-            , "fragrances"
-            , "skincare"
-            , "groceries"
-            , "home-decoration"
-            ,"furniture"
-        ],
-  panel:[0]
+      "smartphones"
+      , "laptops"
+      , "fragrances"
+      , "skincare"
+      , "groceries"
+      , "home-decoration"
+      , "furniture"
+    ],
+    panel: [0]
   }),
   computed: {
     selectedCategory: {
       get() {
-          return this.$store.state.products.selectedCategory
+        return this.$store.state.products.selectedCategory
       },
       set(val) {
-          this.$store.commit('products/setSelectedCategory', val)
+        this.$store.commit('products/setSelectedCategory', val)
       }
     }
   }
 }
 </script>
 <template lang="pug">
-.handle-list
+.handle-list.secondary
   h2(class="text-center") Shop by category
   div(class="mx-2 py-2")
     v-expansion-panels(v-model="panel" multiple)
@@ -39,7 +39,6 @@ export default {
 </template>
 <style lang="sass">
 .handle-list
-  background-color: white
   height: fit-content
   margin: 0 20px
   border-radius: 10px

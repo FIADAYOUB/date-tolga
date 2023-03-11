@@ -88,7 +88,7 @@ export default {
 }
 </script>
 <template lang="pug">
-.products-index
+.products-index.secondary
   .select_wrapper.d-flex.align-center.justify-space-between.mb-3
     .list-order-center
       v-row(class="ml-5")
@@ -121,12 +121,11 @@ export default {
 </template>
 <style lang="sass">
 .products-index
-  background-color: white
   padding: 20px 0px
   margin: 0 auto
   .select_wrapper
     .bg-primary
-      color: blue
+      color: var(--primary-color)
   .products-wrapper
     .v-card
       margin: 0 8px !important
