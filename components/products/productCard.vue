@@ -30,7 +30,7 @@ export default {
 .product-card(style="width:100%")
   template(v-if="grid")
     nuxt-link(:to="`/products/?id=${product.id}`")
-      v-card(class="mx-auto" max-width="300")
+      v-card(class="mx-auto" color="accent")
         v-img(
           class="align-end text-white"
           height="150"
@@ -51,7 +51,7 @@ export default {
   template(v-else)
     v-col(cols="12")
       nuxt-link(:to="`/products/?id=${product.id}`")
-        v-card(style="max-height: 220px")
+        v-card.accent(style="max-height: 220px")
           v-btn(icon :color="isFav" style="position: absolute; top: 4px; right: 5px; width:30px", @click.prevent="addToFav(product)")
             font-awesome-icon(icon="fa-heart" style="fontSize:20px")
           div(class="d-flex")
@@ -78,7 +78,8 @@ export default {
   a
     color: white
     .v-card
-      margin: 0 8px !important
+
+      margin: 0 auto !important
       height: 300px
       .card-title
         font-size: 14px

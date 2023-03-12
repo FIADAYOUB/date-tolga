@@ -3,23 +3,23 @@ v-app
   v-app-bar.primary
     v-app-bar-title
       nuxt-link(to="/")
-        v-icon mdi-home
+        v-icon(color='accent') mdi-home
     v-spacer
     v-btn(class="text-none" icon stacked @click="showChartModal")
       v-badge(v-if="totalChart > 0" color="error" :content="totalChart" overlap)
-        v-icon mdi-cart-outline
-      v-icon(v-else) mdi-cart-outline
+        v-icon(color='accent') mdi-cart-outline
+      v-icon(v-else color='accent') mdi-cart-outline
 
     v-btn(icon)
-      v-icon mdi-account-circle
+      v-icon(color='accent') mdi-account-circle
   Nuxt
   chart-modal
   Footer
 </template>
 
 <script>
-import ChartModal from '../components/modal/chartModal.vue';
-import Footer from '../components/footer.vue';
+import ChartModal from '../components/modal/chartModal';
+import Footer from '../components/footer';
 export default {
   name: 'IndexPage',
   components: {
@@ -48,8 +48,10 @@ export default {
 </script>
 <style lang="sass">
 .v-application
-   font-family: Red Hat Text,sans-serif
-   .v-toolbar__content
+    font-family: Red Hat Text,sans-serif
+    .v-toolbar__content
       background-color: var(--primary)
+    a
+      text-decoration: none !important
 </style>
 

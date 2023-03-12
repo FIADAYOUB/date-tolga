@@ -30,7 +30,7 @@ export default {
   h2(class="text-center") Shop by category
   div(class="mx-2 py-2")
     v-expansion-panels(v-model="panel" multiple)
-      v-expansion-panel
+      v-expansion-panel.accent
         v-expansion-panel-header Category
         v-expansion-panel-content
           template(v-for="cat in category")
